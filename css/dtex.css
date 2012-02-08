@@ -1,0 +1,7 @@
+body { margin:0;font-family:verdana, "trebuchet MS", helvetica, sans-serif;font-size:11px;color:#666666;}
+#pagecontainer {width:987px;margin:0px auto;text-align:left;}
+#masthead {width:987px;height:125px;text-align:center; }
+#pageRule {border: 1px solid #d9d4ce;width:987px;padding:0 0 24px 0; }
+#inline {padding:36px 20px;}
+#copyright {padding: 11px 4px;font-size:10px;color:#beb7ae; }
+#copyright a {color:#beb7ae; }
