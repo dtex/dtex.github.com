@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Dtex.github.com</title>
+    <title>dtex.github.com</title>
   </head>
 
   <body>
@@ -18,7 +18,7 @@
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/dtex">View on GitHub</a>
 
-          <h1 id="project_title">dtex.github.com</h1>
+          <h1 id="project_title">dtex</h1>
           <h2 id="project_tagline"></h2>
 
         </header>
@@ -27,13 +27,112 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h1>dtex</h1>
+        <h1>About</h1>
 
         <p>I build websites... mostly. Occasionally I get to build tools and micro frameworks that may or may not be of use to others (I mostly build them to make my own life easier). On very special days I get to work on SAM, a website management app that I started work on in 2001. On very, very special days I work on oblsk, a node.js website management tool.</p>
 
-        <h2>Current Projects</h2>
+        <h2>Open Source Projects</h2>
 
-        <p><a href="/canDo.js/">canDo.js</a> - A canvas wrapper for lightweight animations. Ideal for animating simple UI elements (i.e. buttons)</p>
+         <p><a href="/timecop/">Timecop</a> (Node.js) - A process that monitors Traffic Live to see if users have entered their time. If they are behind, a reminder email will be sent.</p>
+        
+        <p><a href="/logMyCallsToZoho/">logMyCallsToZoho</a> (Node.js) - A process that looks for new calls in Log My Calls and enters them as new contacts or events on matched contacts at Zoho.</p>
+
+        <p><a href="/canDo.js/">canDo.js</a> (vanilla JS) - A canvas wrapper for lightweight animations. Ideal for animating simple UI elements (i.e. buttons)</p>
+                
+        <p><a href="/siz-marquee/">siz-marquee</a> (js, jQuery) - A framework for building custom marquees and banner animations. Will be vanilla JS soon.</p>
+        
+        <p><a href="/SAM-YouTube/">SAM-YouTube</a> (js, jQuery, jQueryTools) - Embeds YouTube videos in sites. Requires jQuery (optionally requires jQuery Tools for liteboxes).</p>
+        
+        <h2>Not Open Source Projects</h2>
+
+         <h3>SPAS</h3>
+         <p>Super Proxy Asset Server is still in beta, but I'm pretty excited about it. SPAS is a node.js service that concatenates, caches and throttles multiple API lookups. API responses can be parsed by custom functions in the service. For example, we had a client whose Media page made a request to YouTube for videos in their feed, Twitter for their recent tweets, and eleven requests to Flickr for a list of photo sets and photos in each set. SPAS combines them all into a single request and eliminates a large portion of the client side parsing. A huge part of the credit for SPAS goes to <a href="https://github.com/neopunisher">neopunisher</a></p>
+         
+         <h4>Some sites already using SPAS</h4>
+         
+         <ul>
+         	<li><a href="http://www.mma-tx.org/">Marine Military Academy</a></li>
+         	<li><a href="http://www.marathonoil.com/">Marathon Oil</a></li>
+         	<li><a href="http://www.spectraenergy.com/">Spectra Energy</a></li>
+         	<li><a href="http://www.efiglobal.com/">EFI Global</a></li>
+         	<li><a href="http://www.adchas.com/">ADC &amp; HAS</a></li>
+         	<li><a href="http://www.ascende.com/">Ascende</a></li>
+         </ul>
+         
+         <p>I am considering an open source version (Little SPAS) which will support a single site/client.</p>
+         
+         <h3>SAM</h3>
+         <p>A proprietary web content management system that is, of course, better than every other web content management system (not that I'm biased). There is no public marketing support for it, but I'll happily demo it to anyone who would like to see it.</p>
+         
+         <h4>Some sites I've built using SAM</h4>
+         
+         <p>I should qualify this. My company has a large team of people building these sites. Information architects, writers, designers, SEO experts, project managers and more. In addition, the clients themselves do a great deal of maintenance and construction on their own using the SAM interface. On these sites I was responsible for at least 50% of the template, JS, CSS and custom server side code. Anything less than 75% and I put it in the next section.</p>
+         
+         <ul>
+         	<li><a href="http://www.paclp.com">PAC</a></li>
+         	<li><a href="http://www.employerflexible.com/">Employer Flexible</a></li>
+         	<li><a href="http://www.spectraenergy.com/">Spectra Energy</a></li>
+         	<li><a href="http://www.proactivecommo.com/">ProActive Communications</a></li>
+         	<li><a href="http://www.efiglobal.com/">EFI Global</a></li>
+         	<li><a href="http://www.iongeo.com/">ION Geophysical</a></li>
+         	<li><a href="http://www.sanjacinto-museum.org/">San Jacinto Monument & Museum</a></li>
+         	<li><a href="http://www.mplx.com/">Marathon Petroleum Energy Logistics</a></li>
+         	<li><a href="http://www.marathonpetroleum.com/brand/">Marathon Petroleum Brand</a></li>
+         	<li><a href="http://www.marathonpetroleum.com/">Marathon Petroleum</a></li>
+			<li><a href="http://www.marathonnorge.no/">Marathon Oil Norge</a></li>
+			<li><a href="http://www.marathonoil.com/">Marathon Oil Corporation</a></li>
+         	<li><a href="http://www.brandextract.com/">BrandExtract</a></li>
+         </ul>
+         
+         <h4>Some sites others have built using SAM</h4>
+         
+         <p>These sites were built by others using SAM. I may or may not have helped on these, but they were all built using my CMS. Some of the great developers using SAM are: <a href="https://github.com/neopunisher">neopunisher</a>, <a href="https://github.com/jlafitte">jlafitte</a>, <a href="https://github.com/sbaggett">sbaggett</a> and <a href="https://github.com/drhodd">drhodd</a></p>
+         
+         <ul>
+         	<li><a href="http://www.adchas.com/">ADC &amp; HAS</a></li>
+         	<li><a href="http://www.ascende.com/">Ascende</a></li>
+         	<li><a href="http://www.malonebailey.com/">Malone Bailey</a></li>
+         	<li><a href="http://www.visionproducts.com/">Vision Products</a></li>
+         	<li><a href="http://www.spectraenergypartners.com/">Spectra Energy Partners</a></li>
+         	<li><a href="http://www.mma-tx.org/">Marine Military Academy</a></li>
+         	<li><a href="http://www.teamoiltools.com/">Team Oil Tools</a></li>
+         	<li><a href="http://www.uptowndiamond.com/">Uptown Diamond</a></li>
+         	<li><a href="http://www.gseworld.com/">GSE Environmental</a></li>
+         	<li><a href="http://www.tellepsenbuilders.com/default.htm">Tellepsen Builders</a></li>
+         	<li><a href="http://www.tdshou.com/">TDS Workforce Solutions</a></li>
+         	<li><a href="http://www.advantagefixtures.com/">Advantage Fixtures</a></li>
+         	<li><a href="http://www.genesysworks.org/">Genesys Works</a></li>
+         	<li><a href="http://www.bromptonchdo.org/">Brompton</a></li>
+         	<li><a href="http://www.theinterfaithgroup.org/">Inter-Faith Group</a></li>
+         	<li><a href="http://www.portfolioresidentservices.org/">Portfolio Resident Services</a></li>
+         	<li><a href="http://www.ti-f.org/">Inter-Faith, Texas</a></li>
+         	<li><a href="http://www.susmangodfrey.com/">Susman Godfrey, LLP</a></li>
+         	<li><a href="http://www.boyarmiller.com/">Boyar Millar</a></li>
+         	<li><a href="http://www.fosterquan.com/">Foster Quan, LLP</a></li>
+         	<li><a href="http://www.pointclickmow.com/">PointClickMow</a></li>
+         	<li><a href="http://www.mcintyrerobinowitz.com/">McIntyre Robinowitz</a></li>
+         	<li><a href="http://www.moriarty.com/">Moriarty Leyendecker</a></li>
+         	<li><a href="http://www.geoforce.com/">GeoForce</a></li>
+         	<li><a href="http://www.varelintl.com/">Varel International</a></li>
+         	<li><a href="http://www.womens-radiology.com/">Women&rsquo;s Radiology</a></li>
+         	<li><a href="http://www.simmonsco-intl.com/">Simmons &amp; Company International</a></li>
+         	<li><a href="http://www.mpctandlcontractors.com/">Marathon Petroleum Transportation and Logistics</a></li>
+         	<li><a href="http://www.marathonrefinerycontractor.com/">Marathon Refinery Contractor</a></li>
+         	<li><a href="http://www.eglng.com/">Equatorial Guinea LNG Holdings Limited</a></li>
+         	<li><a href="http://www.nathansommers.com/">Nathan Sommers Jacobs</a></li>
+         	<li><a href="http://www.dataprojections.com/">Data Projections</a></li>
+         	<li><a href="http://www.chemstations.com/">Chemstations</a></li>
+         	<li><a href="http://www.thebranchschool.org/">The Branch School</a></li>
+         	<li><a href="http://www.mehaffyweber.com/">Mehaffy Weber Attorneys</a></li>
+         	<li><a href="http://www.houstoncapadvisors.com/">Houston Capital Advisors</a></li>
+         	<li><a href="http://www.literacyadvance.org/">Literacy Advance of Houston</a></li>
+         	<li><a href="http://www.electralink.com/">Electralink</a></li>
+         	<li><a href="http://www.hwa.com/">Hughes Watters Askanase</a></li>
+         	<li><a href="http://www.greenstarshredding.com/">Greenstar Shredding</a></li>
+         	<li><a href="http://www.greenstarrecycling.com/">Greenstar Recycling</a></li>
+         	<li><a href="http://www.susmangodfrey.com/">Susman Godfrey</a></li>
+         </ul>
+        
       </section>
     </div>
 
