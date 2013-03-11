@@ -1,0 +1,29 @@
+ul.screenshots  {
+	list-style-type: none;
+}
+
+.screenshots img {
+	width: auto;
+	margin:0;
+	padding:0;
+	-moz-box-shadow: 3px 3px 4px #555;
+	-webkit-box-shadow: 3px 3px 4px #555;
+	box-shadow: 3px 3px 4px #555;
+	border: solid 1px #999;
+}
+
+.screenshots li {
+	list-style-type: none;
+	padding:0 18px 24px 0;
+	float:left;
+	text-align:center;
+	
+}
+
+.clear {
+	clear: both;
+}
+
+.title {
+	padding-bottom: 12px;
+}
