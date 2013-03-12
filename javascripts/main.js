@@ -5,6 +5,6 @@ jQuery((function($) {
 			link = $item.find('a').attr('href'),
 			title = $item.find('a').html();
 			
-		$item.html('<img src="images/screenshots/thumb/' + name + '.png" width="215" /><br />' + title + '<div class="title"></div>');
+		$item.html('<a href="' + link + '"><img src="images/screenshots/thumb/' + name + '.png" width="215" /></a><br /><div class="title"><a href="' + link + '">' + title + '</a></div>');
 	});
 })(jQuery));
