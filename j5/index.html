@@ -545,13 +545,14 @@ board.on(<span class="string">"ready"</span>, <span class="function"><span class
 board.on(<span class="string">"ready"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
 
   <span class="keyword">var</span> rotary = <span class="keyword">new</span> five.Sensor(<span class="string">"A0"</span>);
+
   <span class="keyword">var</span> graph = <span class="keyword">new</span> Barcli({
     label: <span class="string">"Potentiometer"</span>,
     range: [0,1023]
   });
 
 
-  rotary.scale(range).on(<span class="string">"change"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  rotary.scale([0, 1023]).on(<span class="string">"change"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     graph.update(<span class="keyword">this</span>.value);
   });
 });
