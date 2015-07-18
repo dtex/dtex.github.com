@@ -635,7 +635,7 @@ board.on(<span class="string">"ready"</span>, <span class="function"><span class
     range: [0, 255]
   });
 
-  rotary.scale(range).on(<span class="string">"change"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  rotary.scale([0, 1023]).on(<span class="string">"change"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     graph.update(<span class="keyword">this</span>.value >> 2);
     led.brightness(<span class="keyword">this</span>.value >> 2);)
   });
