@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://dl.dropboxusercontent.com/u/3531958/jsconf-2015/index.html#/4 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Intro to Johnny-Five</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="stylesheet" href="https://dl.dropboxusercontent.com/u/3531958/jsconf-2015/css/reset.css">
+    <link rel="stylesheet" href="https://dl.dropboxusercontent.com/u/3531958/jsconf-2015/css/main.css">
+    <link rel="stylesheet" href="./JSConf 2015_files/print.css" type="text/css" media="print">
+    <!-- <link rel="stylesheet" href="css/reveal.css"> -->
+    <!-- <link rel="stylesheet" href="css/themes/simple.css" id="theme"> -->
+
+
+    <link rel="stylesheet" href="https://dl.dropboxusercontent.com/u/3531958/jsconf-2015/lib/zenburn.css">
+    <style>
+    button {
+      -webkit-appearance: none;
+      -webkit-user-select: none;
+      background-image: -webkit-linear-gradient(#ededed, #ededed 38%, #dedede);
+      border: 1px solid rgba(0, 0, 0, 0.25);
+      border-radius: 2px;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08),
+          inset 0 1px 2px rgba(255, 255, 255, 0.75);
+      color: #444;
+      font: inherit;
+      margin: 0 1px 0 0;
+      text-shadow: 0 1px 0 rgb(240, 240, 240);
+    }
+
+    </style>
+
+
+    <script src="./JSConf 2015_files/es6-shim.js"></script>
+    <script src="./JSConf 2015_files/jquery.min.js"></script>
+    <script src="./JSConf 2015_files/TweenMax.min.js"></script>
+    <script src="./JSConf 2015_files/unprefix.js"></script>
+    <script src="./JSConf 2015_files/eventemitter.js"></script>
+<!--
+    <script src="lib/progress.js"></script>
+    <script src="lib/simulation.js"></script>
+ -->
+    <script src="./JSConf 2015_files/popcorn.js"></script>
+    <script>
+
+    Popcorn(function() {
+      var cues = {
+        // "#sequence-b": 0,
+        // "#audience": 0,
+        // "#walking": 0,
+        // "#dancing": 0,
+        // "#brat-dof": 2,
+        // "#brat-kicking": 3,
+        // "#scout-demo-front": 11,
+        // "#brat-obstacles-001": 0,
+        // "#brat-obstacles-003": 0,
+      };
+
+      var media = document.querySelectorAll("video");
+      var videos = [].reduce.call(media, function(accum, elem) {
+        var id = "#" + elem.id;
+        return (accum[id] = cues[id] || 0, accum);
+      }, {});
+
+      Object.keys(videos).forEach(function(id, k) {
+        var cue = videos[id];
+        Popcorn(id).on("canplayall", function() {
+          this.currentTime(cue).on("click", function() {
+            this.controls(true).play();
+            this.media.requestFullScreen();
+          }).on("ended", function() {
+            this.currentTime(cue);
+
+            if (this.media.webkitExitFullScreen) {
+              this.media.webkitExitFullScreen();
+            }
+          });
+        });
+      });
+    });
+    </script>
+
+  </head>
+  <body>
+    <div class="reveal neon">
+
+      <!-- Used to fade in a background when a specific slide state is reached -->
+      <div class="state-background"></div>
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+        <section class="past" style="display: none;">
+          <a href="./JSConf 2015_files/nodebot-450x450.png" target="_blank"><img src="./JSConf 2015_files/nodebot-450x450.png" style="width: 450px"></a>
+
+          <h3><a href="http://nodebots.io/" target="_blank" data-destyle="" class="">nodebots.io</a></h3>
+          <script>
+            // Delicously hacky. Look away.
+            if (navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i)) document.write('<p style="color: rgba(0,0,0,0.3); text-shadow: none;">(' + 'Tap to navigate' + ')</p>');
+          </script>
+        </section>
+
+        <section class="past" style="display: block;">
+          <a href="./JSConf 2015_files/sgier-johnny-five.png" target="_blank"><img src="./JSConf 2015_files/sgier-johnny-five.png" style="width: 450px"></a>
+
+          <h3><a href="http://johnny-five.io/" target="_blank" data-destyle="" class="">johnny-five.io</a></h3>
+
+        </section>
+
+
+        <section class="past" style="display: block;">
+          <br><br><br><br>
+          <h1>Follow Along <br>
+            <a href="http://gul.ly/36qz" target="_blank" data-destyle="" class="">gul.ly/36qz</a>
+          </h1>
+        </section>
+
+        <section class="past" style="display: block;">
+          <h1>Blatantly Stolen From<br>
+<h2>Lyza Danger Gardner</h2>
+<h2>Francis Gulotta</h2>
+<h2>Katie Kurkoski</h2>
+<h2>Rick Waldron</h2>
+        </section>
+
+        <section class="present" style="display: block;">
+          <br>
+<h2>@lyzadanger</h2>
+<h2>@reconbot</h2>
+<h2>@katiek2</h2>
+<h2>@rwaldron</h2>
+        </section>
+
+
+        <section class="future" style="display: block;">
+          <br><br><br>
+          <h1>
+            Important Points<br> To Consider
+          </h1>
+        </section>
+
+        <section class="future" style="display: block;">
+          <br>
+          <h1>
+            The only dumb question is the one you never asked.
+          </h1>
+        </section>
+
+        <section class="future" style="display: block;">
+          <br>
+          <h1>
+            Doesn't work? <br> It's probably the hardware.
+          </h1>
+        </section>
+
+        <section class="future" style="display: none;">
+          <br>
+          <h1>
+            Let's learn about your Johnny-Five Starter Kit!
+          </h1>
+        </section>
+
+        <section class="future" style="display: none;">
+          <a href="./JSConf 2015_files/arduino_desktop.jpg" target="_blank"><img src="./JSConf 2015_files/arduino_desktop.jpg" style="width: 800px"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h3>Breadboard: Solderless wiring</h3>
+          <a href="./JSConf 2015_files/kit-001.jpg" target="_blank"><img src="./JSConf 2015_files/kit-001.jpg" style="width: 600px"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h3>Breadboard: Electrical Connections</h3>
+          <a href="./JSConf 2015_files/breadboard-conections.jpg" target="_blank"><img src="./JSConf 2015_files/breadboard-conections.jpg" style="width: 600px"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h3>Servo: Actuate Physical Movement</h3>
+          <a href="./JSConf 2015_files/kit-005.jpg" target="_blank"><img src="./JSConf 2015_files/kit-005.jpg" style="width: 600px"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h3>Attach The Horn!</h3>
+          <a href="./JSConf 2015_files/kit-006.jpg" target="_blank"><img src="./JSConf 2015_files/kit-006.jpg" style="width: 600px"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h3>Resistors: Reduce Current Flow, lower Voltage Level</h3>
+          <a href="./JSConf 2015_files/kit-007.jpg" target="_blank"><img src="./JSConf 2015_files/kit-007.jpg" style="width: 600px"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h3>LEDs: Light Up Your Life</h3>
+          <a href="./JSConf 2015_files/kit-008.jpg" target="_blank"><img src="./JSConf 2015_files/kit-008.jpg" style="width: 600px"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h3>Buttons, Potentiometer</h3>
+          <a href="./JSConf 2015_files/kit-010.jpg" target="_blank"><img src="./JSConf 2015_files/kit-010.jpg" style="width: 600px"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h3>Sensor: Temperature</h3>
+          <a href="./JSConf 2015_files/kit-011.jpg" target="_blank"><img src="./JSConf 2015_files/kit-011.jpg" style="width: 600px"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h3>9V Battery Snap</h3>
+          <a href="./JSConf 2015_files/kit-014.jpg" target="_blank"><img src="./JSConf 2015_files/kit-014.jpg" style="width: 600px"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h3>We're Going to Wreck It.</h3>
+          <a href="./JSConf 2015_files/kit-016.jpg" target="_blank"><img src="./JSConf 2015_files/kit-016.jpg" style="width: 600px"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h3>Motor: Brushed, DC</h3>
+          <a href="./JSConf 2015_files/kit-019.jpg" target="_blank"><img src="./JSConf 2015_files/kit-019.jpg" style="width: 600px"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h3>Jumper Wires! </h3>
+          <a href="./JSConf 2015_files/kit-020.jpg" target="_blank"><img src="./JSConf 2015_files/kit-020.jpg" style="width: 600px"></a>
+        </section>
+
+
+        <section class="future" style="display: none;">
+          <br><br><br><br>
+          <h1>
+            Ready To Make Stuff?
+          </h1>
+        </section>
+
+        <section class="future" style="display: none;">
+          <br><br><br><br>
+          <h1>
+            Create Output
+          </h1>
+        </section>
+
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/led.png" target="_blank"><img src="./JSConf 2015_files/led.png" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <br><br><br><br>
+            <h2>
+              Connect The Arduino to your computer via USB.
+            </h2>
+          </section>
+
+          <section class="future" style="display: none;">
+            <br><br><br><br>
+            <h2>
+              Make a project directory, <br>open project in editor of choice.
+            </h2>
+          </section>
+
+          <section class="future" style="display: none;">
+            <br><br><br>
+            <h3><code>npm init -y</code></h3><br>
+            <h3><code>npm install johnny-five</code></h3>
+          </section>
+
+
+          <section class="future" style="display: none;">
+            <h3>Don't do this:</h3>
+  <pre><code contenteditable="" class="php">$ node
+&gt; <span class="keyword">var</span> j5 = <span class="keyword">require</span>(<span class="string">"johnny-five"</span>);
+undefined
+&gt; <span class="keyword">var</span> board = <span class="keyword">new</span> j5.Board();
+undefined
+&gt; <span class="number">1432581579628</span> Looking <span class="keyword">for</span> connected device
+&gt; <span class="keyword">var</span> board = <span class="keyword">new</span> j5.Board();
+undefined
+&gt; <span class="number">1432581593535</span> Device(s) /dev/cu.usbmodem1411
+<span class="number">1432581593554</span> Connected /dev/cu.usbmodem1411
+
+undefined
+&gt; <span class="number">1432581594739</span> Looking <span class="keyword">for</span> connected device
+
+undefined
+&gt;
+undefined
+  </code></pre>
+          </section>
+
+          <section class="future" style="display: none;">
+            <br><br><br><br>
+            <h1>
+              Just make a new file.
+            </h1>
+          </section>
+
+          <section class="future" style="display: none;">
+            <h2>Turn it on</h2>
+  <pre><code contenteditable="" class="javascript"><span class="keyword">var</span> five = require(<span class="string">"johnny-five"</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board();
+
+board.on(<span class="string">"ready"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="keyword">var</span> led = <span class="keyword">new</span> five.Led(<span class="number">11</span>);
+
+  led.on();
+});
+  </code></pre>
+  <h3><code>node led-on.js</code></h3>
+          </section>
+
+
+          <section class="future" style="display: none;">
+            <h2>Make it blink</h2>
+  <pre><code contenteditable="" class="javascript"><span class="keyword">var</span> five = require(<span class="string">"johnny-five"</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board();
+
+board.on(<span class="string">"ready"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="keyword">var</span> led = <span class="keyword">new</span> five.Led(<span class="number">11</span>);
+
+  led.blink();
+});
+  </code></pre>
+  <h3><code>node led-blink.js</code></h3>
+          </section>
+
+          <section class="future" style="display: none;">
+            <h2>Change the blink rate.</h2>
+  <pre><code contenteditable="" class="javascript"><span class="keyword">var</span> five = require(<span class="string">"johnny-five"</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board();
+
+board.on(<span class="string">"ready"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="keyword">var</span> led = <span class="keyword">new</span> five.Led(<span class="number">11</span>);
+
+  led.blink(<span class="number">1000</span>); <span class="comment">// &lt;-- ms on/off phases</span>
+});
+  </code></pre>
+  <h3><code>node led-blink-slow.js</code></h3>
+          </section>
+
+
+          <section class="future" style="display: none;">
+            <h2>Manual, live control</h2>
+  <pre><code contenteditable="" class="javascript"><span class="keyword">var</span> five = require(<span class="string">"johnny-five"</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board();
+
+board.on(<span class="string">"ready"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="keyword">var</span> led = <span class="keyword">new</span> five.Led(<span class="number">11</span>);
+
+  <span class="keyword">this</span>.repl.inject({
+    led: led
+  });
+});
+  </code></pre>
+  <h3><code>node led-boss.js</code></h3>
+          </section>
+
+
+          <section class="future" style="display: none;">
+            <h2>In the REPL</h2>
+  <pre><code contenteditable="" class="undefined">&gt; led.on();
+
+&gt; led.off();
+
+&gt; led.blink();
+
+&gt; led.stop();
+
+&gt; led.pulse();
+
+  </code></pre>
+          </section>
+
+
+        <section class="future" style="display: none;">
+          <br><br><br>
+          <h1>
+            Create Digital Input
+          </h1>
+          <h1>
+            0|1
+          </h1>
+        </section>
+
+
+        <section class="future" style="display: none;">
+          <a href="./JSConf 2015_files/button.png" target="_blank"><img src="./JSConf 2015_files/button.png" style="width: 800px"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h2>Respond to Button Press</h2>
+<pre><code contenteditable="" class="javascript"><span class="keyword">var</span> five = require(<span class="string">"johnny-five"</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board();
+
+board.on(<span class="string">"ready"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="keyword">var</span> button = <span class="keyword">new</span> five.Button(<span class="number">2</span>);
+
+  button.on(<span class="string">"press"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    console.log(<span class="string">"Button Pressed!"</span>);
+  });
+});
+</code></pre>
+<h3><code>node button.js</code></h3>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h2>Respond to Button Release</h2>
+<pre><code contenteditable="" class="javascript"><span class="keyword">var</span> five = require(<span class="string">"johnny-five"</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board();
+
+board.on(<span class="string">"ready"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="keyword">var</span> button = <span class="keyword">new</span> five.Button(<span class="number">2</span>);
+
+  button.on(<span class="string">"press"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    console.log(<span class="string">"Button Pressed!"</span>);
+  });
+
+  button.on(<span class="string">"release"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    console.log(<span class="string">"Button Released!"</span>);
+  });
+});
+</code></pre>
+<h3><code>node button.js</code></h3>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h2>Convert Input to Output</h2>
+<pre><code contenteditable="" class="javascript"><span class="keyword">var</span> five = require(<span class="string">"johnny-five"</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board();
+
+board.on(<span class="string">"ready"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="keyword">var</span> led = <span class="keyword">new</span> five.Led(<span class="number">11</span>);
+  <span class="keyword">var</span> button = <span class="keyword">new</span> five.Button(<span class="number">2</span>);
+
+  button.on(<span class="string">"press"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    led.on();
+  });
+
+  button.on(<span class="string">"release"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    led.off();
+  });
+});
+</code></pre>
+<h3><code>node button.js</code></h3>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h3>Multiple States of Input to Multiple States of Output</h3>
+<pre><code contenteditable="" class="javascript"><span class="keyword">var</span> five = require(<span class="string">"johnny-five"</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board();
+
+board.on(<span class="string">"ready"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="keyword">var</span> led = <span class="keyword">new</span> five.Led(<span class="number">11</span>);
+  <span class="keyword">var</span> button = <span class="keyword">new</span> five.Button(<span class="number">2</span>);
+
+  button.on(<span class="string">"press"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    led.on();
+  });
+
+  button.on(<span class="string">"hold"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    led.blink(<span class="number">50</span>);
+  });
+
+  button.on(<span class="string">"release"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    led.stop().off();
+  });
+});
+</code></pre>
+<h3><code>node button.js</code></h3>
+        </section>
+
+        <section class="future" style="display: none;">
+          <br><br><br>
+          <h1>
+            Observe Analog Input
+          </h1>
+        </section>
+
+        <section class="future" style="display: none;">
+          <br><br>
+          <h1>
+            0-1023
+          </h1>
+          <h1>
+            <!-- This is fucking stupid. Leaque Gothic puts the tilde at the top of the letter -->
+            <code>~</code>5V in 10 bits
+          </h1>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h2>
+            Side Quest!
+          </h2>
+          <h2>
+            Open Developer Tools Console in either Firefox, Chrome or Edge, paste this:
+          </h2>
+          <br>
+          <h3><code>
+            0b1111111111
+          </code></h3>
+          <br>
+          <h2>
+            Hit &lt;enter&gt;
+          </h2>
+        </section>
+
+        <section class="future" style="display: none;">
+          <a href="./JSConf 2015_files/analog.png" target="_blank"><img src="./JSConf 2015_files/analog.png" style="width: 800px"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h3>Receive Values From a Sensor</h3>
+<pre><code contenteditable="" class="javascript"><span class="keyword">var</span> five = require(<span class="string">"johnny-five"</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board();
+
+board.on(<span class="string">"ready"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="keyword">var</span> rotary = <span class="keyword">new</span> five.Sensor(<span class="string">"A0"</span>);
+
+  rotary.on(<span class="string">"change"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    console.log(<span class="string">"Sensor changed!"</span>, <span class="keyword">this</span>.value);
+  });
+});
+</code></pre>
+<h3><code>node sensor.js</code></h3>
+        </section>
+
+        <section class="future" style="display: none;">
+          <br><br><br>
+          <h2><code>
+            npm install barcli
+          </code></h2>
+          <h4>(say: barklee)</h4>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h3>Analog Data</h3>
+<pre><code contenteditable="" class="javascript"><span class="keyword">var</span> Barcli = require(<span class="string">"barcli"</span>);
+<span class="keyword">var</span> five = require(<span class="string">"johnny-five"</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board({
+  debug: <span class="literal">false</span>, repl: <span class="literal">false</span>
+});
+
+board.on(<span class="string">"ready"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+
+  <span class="keyword">var</span> rotary = <span class="keyword">new</span> five.Sensor(<span class="string">"A0"</span>);
+  <span class="keyword">var</span> graph = <span class="keyword">new</span> Barcli({
+    label: <span class="string">"Potentiometer"</span>,
+    range: [0,1023]
+  });
+
+
+  rotary.scale(range).on(<span class="string">"change"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    graph.update(<span class="keyword">this</span>.value);
+  });
+});
+</code></pre>
+<h3><code>node sensor.js</code></h3>
+        </section>
+
+
+        <section class="future" style="display: none;">
+          <br><br><br>
+          <h1>Convert 10-bit Input <br>to 8-bit Output</h1>
+        </section>
+
+        <section class="future" style="display: none;">
+          <a href="./JSConf 2015_files/analog.png" target="_blank"><img src="./JSConf 2015_files/analog.png" style="width: 800px"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h1>PWM</h1>
+
+          <h3>
+            Pulse Width Modulation, or PWM, is a technique for getting analog results with digital means. <br>Digital control is used to create a square wave, a signal switched between on and off.
+            <br>
+            - Arduino.cc
+          </h3>
+
+        </section>
+
+        <section class="future" style="display: none;">
+          <a href="./JSConf 2015_files/pwm.gif" target="_blank"><img src="./JSConf 2015_files/pwm.gif" style="width: 400px;background-color:#ffffff"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <a href="./JSConf 2015_files/pwm-bits.png" target="_blank"><img src="./JSConf 2015_files/pwm-bits.png" style="width: 400px;background-color:#ffffff"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <br>
+          <h2 style="text-align:left"><code>
+            0b00000000 (0)
+            0b01000000 (64)
+            0b01111111 (127*)
+            0b10111111 (191)
+            0b11111111 (255*)
+          </code></h2>
+        </section>
+
+
+        <section class="future" style="display: none;">
+          <br><br><br><br>
+          <h2><code>
+            0b1111111111
+            0b0011111111
+          </code></h2>
+        </section>
+
+        <section class="future" style="display: none;">
+          <br><br><br><br>
+          <h2 style="text-align:left"><code>
+            0b1111111111 &gt;&gt; 2
+            0b0011111111
+            0b11111111&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            255&nbsp;
+          </code></h2>
+          <br>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h3>Convert 10-bit Analog Input to 8-bit PWM Output</h3>
+          <pre><code contenteditable="" class="javascript"><span class="keyword">var</span> Barcli = require(<span class="string">"barcli"</span>);
+<span class="keyword">var</span> five = require(<span class="string">"johnny-five"</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board();
+
+board.on(<span class="string">"ready"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+
+  <span class="keyword">var</span> rotary = <span class="keyword">new</span> five.Sensor(<span class="string">"A0"</span>);
+  <span class="keyword">var</span> led = <span class="keyword">new</span> five.Led(<span class="number">11</span>);
+  <span class="keyword">var</span> graph = <span class="keyword">new</span> Barcli({
+    label: <span class="string">"Potentiometer"</span>,
+    range: [0, 255]
+  });
+
+  rotary.scale(range).on(<span class="string">"change"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    graph.update(<span class="keyword">this</span>.value >> 2);
+    led.brightness(<span class="keyword">this</span>.value >> 2);)
+  });
+  
+});
+</code></pre>
+<h3><code>node sensor.js</code></h3>
+        </section>
+
+        <section class="future" style="display: none;">
+          <br><br><br>
+          <h1>Convert 10-bit Input <br>to Degrees</h1>
+        </section>
+
+        <section class="future" style="display: none;">
+          <a href="./JSConf 2015_files/servo-wiring.jpg" target="_blank"><img src="./JSConf 2015_files/servo-wiring.jpg" style="width: 800px"></a>
+        </section>
+
+
+        <section class="future" style="display: none;">
+          <a href="./JSConf 2015_files/analog-control-servo.png" target="_blank"><img src="./JSConf 2015_files/analog-control-servo.png" style="width: 800px"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h2>Scale [0, 1023] =&gt; [0, 180]</h2>
+<pre><code contenteditable="" class="javascript"><span class="keyword">var</span> five = require(<span class="string">"johnny-five"</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board();
+
+board.on(<span class="string">"ready"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="keyword">var</span> servo = <span class="keyword">new</span> five.Servo(<span class="number">11</span>);
+  <span class="keyword">var</span> rotary = <span class="keyword">new</span> five.Sensor(<span class="string">"A0"</span>);
+
+  <span class="comment">// scale accepts a single array or two arguments</span>
+  rotary.scale(<span class="number">0</span>, <span class="number">180</span>).on(<span class="string">"change"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    servo.to(<span class="keyword">this</span>.value);
+  });
+});
+</code></pre>
+<h3><code>node sensor.js</code></h3>
+        </section>
+
+        <section class="future" style="display: none;">
+          <br><br><br>
+          <h1>Observe The Environment</h1>
+        </section>
+
+
+        <section class="future" style="display: none;">
+          <a href="./JSConf 2015_files/TMP36.jpg" target="_blank"><img src="./JSConf 2015_files/TMP36.jpg" style="width: 800px"></a>
+        </section>
+
+
+        <section class="future" style="display: none;">
+          <a href="./JSConf 2015_files/temperature.png" target="_blank"><img src="./JSConf 2015_files/temperature.png" style="width: 800px"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h3>Temperature</h3>
+<pre><code contenteditable="" class="javascript"><span class="keyword">var</span> five = require(<span class="string">"johnny-five"</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board();
+
+board.on(<span class="string">"ready"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="keyword">var</span> temp = <span class="keyword">new</span> five.Temperature({
+    controller: <span class="string">"TMP36"</span>,
+    pin: <span class="string">"A0"</span>
+  });
+
+  temp.on(<span class="string">"change"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    console.log(<span class="keyword">this</span>.celsius + <span class="string">"°C"</span>);
+  });
+});
+</code></pre>
+<h3><code>node temperature.js</code></h3>
+        </section>
+
+       <section class="future" style="display: none;">
+          <br><br><br>
+          <h1>Convert Temperature to RGB</h1>
+        </section>
+
+        <section class="future" style="display: none;">
+          <a href="./JSConf 2015_files/diffused-rgb-led.jpg" target="_blank"><img src="./JSConf 2015_files/diffused-rgb-led.jpg" style="width: 600px"></a>
+        </section>
+
+
+        <section class="future" style="display: none;">
+          <a href="./JSConf 2015_files/temperature-rgb.png" target="_blank"><img src="./JSConf 2015_files/temperature-rgb.png" style="width: 800px"></a>
+        </section>
+
+        <section class="future" style="display: none;">
+          <h3>Temperature Display</h3>
+<pre><code contenteditable="" class="javascript"><span class="keyword">var</span> five = require(<span class="string">"johnny-five"</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board();
+
+board.on(<span class="string">"ready"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="keyword">var</span> temp = <span class="keyword">new</span> five.Temperature({
+    controller: <span class="string">"TMP36"</span>,
+    pin: <span class="string">"A0"</span>
+  });
+
+  <span class="keyword">var</span> rgb = <span class="keyword">new</span> five.Led.RGB({
+    pins: [<span class="number">3</span>, <span class="number">5</span>, <span class="number">6</span>],
+    isAnode: <span class="literal">true</span>
+  });
+
+  temp.on(<span class="string">"change"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="comment">// Write an algorithm that converts temperature (F, K or C)</span>
+    <span class="comment">// into an RGB hex value.</span>
+    rgb.color(??????);
+  });
+});
+</code></pre>
+        </section>
+
+
+          <section class="future" style="display: none;">
+            <br><br><br><br>
+            <h1>
+              Break
+            </h1>
+          </section>
+
+
+          <section class="future" style="display: none;">
+            <br><br><br><br>
+            <h1>
+              Let's Build A Robot
+            </h1>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-001.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-001.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-003.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-003.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-004.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-004.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-005.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-005.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-006.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-006.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-007.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-007.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-008.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-008.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-009.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-009.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-010.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-010.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-011.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-011.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-012.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-012.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-013.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-013.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-014.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-014.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-015.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-015.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-016.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-016.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-017.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-017.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-018.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-018.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-019.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-019.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-020.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-020.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-021.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-021.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-022.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-022.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-023.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-023.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-024.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-024.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-025.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-025.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-026.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-026.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-027.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-027.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-028.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-028.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-029.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-029.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <a href="./JSConf 2015_files/pee-wee-030.jpg" target="_blank"><img src="./JSConf 2015_files/pee-wee-030.jpg" style="width: 600px"></a>
+          </section>
+
+          <section class="future" style="display: none;">
+            <br><br><br><br>
+            <h2>
+              Connect The Arduino to your computer via USB.
+            </h2>
+          </section>
+
+
+          <section class="future" style="display: none;">
+            <h2>Make it go!</h2>
+<pre><code contenteditable="" class="javascript"><span class="keyword">var</span> five = require(<span class="string">"johnny-five"</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board();
+
+board.on(<span class="string">"ready"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="comment">// Johnny-Five provides pre-packages shield configurations!</span>
+  <span class="comment">// http://johnny-five.io/api/motor/#pre-packaged-shield-configs</span>
+  <span class="keyword">var</span> motors = <span class="keyword">new</span> five.Motors([
+    five.Motor.SHIELD_CONFIGS.POLOLU_DRV8835_SHIELD.M1,
+    five.Motor.SHIELD_CONFIGS.POLOLU_DRV8835_SHIELD.M2,
+  ]);
+
+  motors.speed(<span class="number">255</span>);
+
+  <span class="keyword">this</span>.wait(<span class="number">3000</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    motors.stop();
+  });
+});
+</code></pre>
+<h3><code>node rover.js</code></h3>
+          </section>
+
+          <section class="future" style="display: none;">
+            <h2>Live Control</h2>
+<pre><code contenteditable="" class="javascript"><span class="keyword">var</span> five = require(<span class="string">"johnny-five"</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board();
+
+board.on(<span class="string">"ready"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="comment">// Johnny-Five provides pre-packages shield configurations!</span>
+  <span class="comment">// http://johnny-five.io/api/motor/#pre-packaged-shield-configs</span>
+  <span class="keyword">var</span> motors = <span class="keyword">new</span> five.Motors([
+    five.Motor.SHIELD_CONFIGS.POLOLU_DRV8835_SHIELD.M1,
+    five.Motor.SHIELD_CONFIGS.POLOLU_DRV8835_SHIELD.M2,
+  ]);
+
+  <span class="keyword">this</span>.repl.inject({
+    motors: motors
+  });
+
+  motors.speed(<span class="number">255</span>);
+});
+</code></pre>
+<h3><code>node rover.js</code></h3>
+          </section>
+          <section class="future" style="display: none;">
+            <h2>Try These!</h2>
+<pre><code contenteditable="" class="undefined">&gt; motors.stop();
+
+&gt; motors.speed(127);
+
+&gt; motors.fwd();
+
+&gt; motors.rev();
+</code></pre>
+          </section>
+
+
+
+
+
+          <section class="future" style="display: none;">
+            <br><br><br><br>
+            <h1><a href="https://github.com/rwaldron/pee-wee-rover/" target="_blank" data-destyle="" class="">Get The Project Files Here!</a></h1>
+
+          </section>
+
+
+
+
+
+
+
+
+
+        <section class="future" style="display: none;">
+          <a href="./JSConf 2015_files/sgier-johnny-five(1).png" target="_blank"><img src="./JSConf 2015_files/sgier-johnny-five(1).png" style="width:400px;height:400px"></a>
+          <h3>
+            johnny-five.io
+          </h3>
+          <h3>
+            github.com/rwaldron/johnny-five
+          </h3>
+          <h3>
+            twitter.com/rwaldron/lists/nodebotics
+          </h3>
+
+        </section>
+
+
+        <section class="future" style="display: none;">
+          <a href="./JSConf 2015_files/bocoup-200.png" target="_blank"><img src="./JSConf 2015_files/bocoup-200.png"></a>
+          <h1>Bocoup</h1>
+          <h3>@bocoup</h3>
+          <h3>bocoup.com</h3>
+        </section>
+
+
+        <section class="future" style="display: none;">
+          <br><br><br><br>
+          <h1>Bonus Material</h1>
+        </section>
+
+        <section class="future" style="display: none;">
+          <br><br><br><br>
+          <h2>Pages in the ARDX Book to ignore</h2>
+          <h3>4, 5, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33</h3><h3>
+        </h3></section>
+
+
+      </div>
+
+      <!-- The navigational controls UI -->
+      <aside class="controls" style="display: block;">
+        <a class="left enabled" href="https://dl.dropboxusercontent.com/u/3531958/jsconf-2015/index.html#">◄</a>
+        <a class="right enabled" href="https://dl.dropboxusercontent.com/u/3531958/jsconf-2015/index.html#">►</a>
+        <a class="up" href="https://dl.dropboxusercontent.com/u/3531958/jsconf-2015/index.html#">▲</a>
+        <a class="down" href="https://dl.dropboxusercontent.com/u/3531958/jsconf-2015/index.html#">▼</a>
+      </aside>
+
+      <!-- Displays presentation progress, max value changes via JS to reflect # of slides -->
+      <div class="progress" style="display: block;"><span style="width: 72.3859649122807px;"></span></div>
+
+    </div>
+
+    <!-- Optional libraries for code syntax highlighting and classList support in IE9 -->
+
+    <script src="./JSConf 2015_files/highlight.js"></script>
+    <script src="./JSConf 2015_files/classList.js"></script>
+    <script src="./JSConf 2015_files/reveal.js"></script>
+
+    <script>
+    // Parse the query string into a key/value object
+    var query = {};
+
+    location.search.replace( /[A-Z0-9]+?=(\w*)/gi, function(a) {
+      query[ a.split( "=" ).shift() ] = a.split( "=" ).pop();
+    });
+
+    var images = Array.from(document.querySelectorAll("img"));
+
+    images.forEach(function(image) {
+      var anchor = document.createElement("a");
+      var clone = image.cloneNode();
+
+      anchor.href = clone.src;
+      anchor.target = "_blank";
+      anchor.appendChild(clone);
+
+      image.parentNode.replaceChild(anchor, image);
+    });
+
+    $(function() {
+      $("[data-destyle]").each(function() {
+        $(this).removeClass("roll").text($(this).find("span").text());
+      });
+    });
+    // Fires each time a new slide is activated
+    Reveal.addEventListener("slidechanged", function( event ) {
+      videos.forEach(function( node ) {
+        node.pause();
+        node.controls = false;
+      });
+    });
+
+    Reveal.initialize({
+      // Display controls in the bottom right corner
+      controls: true,
+
+      // Display a presentation progress bar
+      progress: true,
+
+      // If true; each slide will be pushed to the browser history
+      history: true,
+
+      // Loops the presentation, defaults to false
+      loop: false,
+
+      // Flags if mouse wheel navigation should be enabled
+      mouseWheel: true,
+
+      // Apply a 3D roll to links on hover
+      rollingLinks: true,
+
+      // UI style
+      theme: query.theme || "neon", // default/neon
+
+      // Transition style
+      transition: query.transition || "default" // default/cube/page/concave/linear(2d)
+    });
+
+    hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body></html>
